@@ -11,22 +11,30 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StartWindow extends JFrame {
-    JPanel panel = new JPanel();
-    JLabel omokLabel = new JLabel();
-    ImageIcon omokImg = new ImageIcon("omok.jpg");
-
     public StartWindow() {
+        setBaseSettings();
+        setPanel();
+    }
+
+    private void setPanel() {
+        JPanel panel = new JPanel();
+        add(panel);
+
+        JLabel omokLabel = new JLabel();
+        ImageIcon omokImg = new ImageIcon("omok.jpg");
+        omokLabel.setIcon(omokImg);
+
         JButton startButton = ButtonBuilder.builder()
                 .withText("시작")
                 .withPositionX(10)
                 .withPositionY(20)
                 .withWidth(140)
                 .withHeight(30)
+                .addEvent(e -> {
+                    new StartMenu();
+                    dispose();
+                })
                 .build();
-        startButton.addActionListener(e -> {
-            new StartMenu();
-            dispose();
-        });
         JButton scoreButton = ButtonBuilder.builder()
                 .withText("점수")
                 .withPositionX(10)
@@ -42,16 +50,8 @@ public class StartWindow extends JFrame {
                 .withWidth(140)
                 .withHeight(30)
                 .withColor(Color.YELLOW)
+                .addEvent(e -> System.exit(0))
                 .build();
-        exitButton.addActionListener(e -> System.exit(0));
-
-        setTitle("오목");
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(panel);
-        setSize(400, 400);
-
-        omokLabel.setIcon(omokImg);
 
         panel.add(startButton);
         panel.add(scoreButton);
@@ -59,5 +59,12 @@ public class StartWindow extends JFrame {
         panel.add(omokLabel);
         panel.setLayout(null);
         panel.setBackground(Color.gray);
+    }
+
+    private void setBaseSettings() {
+        setTitle("오목");
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 400);
     }
 }
