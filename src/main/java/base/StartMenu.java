@@ -1,74 +1,106 @@
 package base;
 
-import base.start.StartWindow;
+import base.button.ButtonBuilder;
+import base.start.ProgramWindowController;
+import base.text.NameTextFieldBuilder;
+import base.text.TextFieldBuilder;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class StartMenu extends JFrame implements ActionListener {
-
-    JPanel inputOmok = new JPanel();
-    JButton exitGame = new JButton("시작 화면");
-    JButton order = new JButton("순서");
-    JButton start = new JButton("게임 시작");
-    JTextField f1,f2, f3, f4, info;
+public class StartMenu extends JFrame {
 
     public StartMenu(){
-        // 프레임 설정
-        setTitle("오목 게임");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setBaseSettings();
+        setPanel();
+    }
+    private void setPanel() {
+        JPanel inputOmok = new JPanel();
         add(inputOmok);
         inputOmok.setLayout(null);
 
-        f1 = new JTextField("사용자 1 이름");
-        f2 = new JTextField("사용자 2 이름");
-        f3 = new JTextField(); // 사용자 1 이름 입력받음
-        f4 = new JTextField();// 사용자 2 이름 입력받음
-        info = new JTextField("   ** 흑이 먼저 돌을 놓습니다 **");
+        JButton homeButton = ButtonBuilder.builder()
+                .withText("Home")
+                .withPositionX(120)
+                .withPositionY(280)
+                .withWidth(140)
+                .withHeight(30)
+                .addEvent(e -> {
+                    ProgramWindowController.start();
+                    dispose();
+                })
+                .build();
 
-        // 컴포넌트 위치 설정
-        f1.setEditable(false);
-        f2.setEditable(false);
+        JTextField userName1 = TextFieldBuilder.builder()
+                .withText("User1 Name")
+                .withPositionX(10)
+                .withPositionY(60)
+                .withwidth(150)
+                .withheight(30)
+                .setEditalbe(false)
+                .build();
 
-        info.setEditable(false);
-        info.setBackground(Color.red);
-        info.setForeground(Color.white);
-        exitGame.setBounds(120, 280, 140, 30);
-        f1.setBounds(10,60, 150, 30);
-        f2.setBounds(200,60, 150, 30);
-        f3.setBounds(10,100, 150, 30);
-        f4.setBounds(200,100, 150, 30);
-        info.setBounds(100, 240, 180, 30);
-        order.setBounds(120, 20, 140, 30);
+        JTextField userName2 = TextFieldBuilder.builder()
+                .withText("User1 Name")
+                .withPositionX(200)
+                .withPositionY(60)
+                .withwidth(150)
+                .withheight(30)
+                .setEditalbe(false)
+                .build();
 
-        inputOmok.add(exitGame);
-        inputOmok.add(start);
-        inputOmok.add(f1);
-        inputOmok.add(f2);
-        inputOmok.add(f3);
-        inputOmok.add(f4);
+        JTextField getUserName1 = NameTextFieldBuilder.builder()
+                .withPositionX(10)
+                .withPositionY(100)
+                .withwidth(150)
+                .withheight(30)
+                .build();
+
+        JTextField getUserName2 = NameTextFieldBuilder.builder()
+                .withPositionX(200)
+                .withPositionY(100)
+                .withwidth(150)
+                .withheight(30)
+                .build();
+
+        JButton orderButton = ButtonBuilder.builder()
+                .withText("order")
+                .withPositionX(120)
+                .withPositionY(20)
+                .withWidth(140)
+                .withHeight(30)
+                .addEvent(e -> {
+                    Gamer.g1 = getUserName1.getText();
+                    Gamer.g2 = getUserName2.getText();
+                    new Order();
+                    dispose();
+                })
+                .build();
+
+        JTextField info = TextFieldBuilder.builder()
+                .withText("   ** 흑이 먼저 돌을 놓습니다 **")
+                .withPositionX(100)
+                .withPositionY(240)
+                .withwidth(180)
+                .withheight(30)
+                .setEditalbe(false)
+                .withColor(Color.red)
+                .build();
+
+        inputOmok.add(userName1);
+        inputOmok.add(userName2);
+        inputOmok.add(getUserName1);
+        inputOmok.add(getUserName2);
         inputOmok.add(info);
-        inputOmok.add(order);
-
-        exitGame.addActionListener(this); // 게임 종료
-        order.addActionListener(this); // 순서 정하기
-        this.setVisible(true);
+        inputOmok.add(orderButton);
+        inputOmok.add(homeButton);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == exitGame) {
-            StartWindow game = new StartWindow();
-            dispose();
-        }
-        if (e.getSource() == order) {
-            Gamer.g1 = f3.getText();
-            Gamer.g2 = f4.getText();
-            Order order = new Order();
-            dispose();
-        }
+    private void setBaseSettings() {
+        setTitle("오목 게임");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 400);
+        setVisible(true);
     }
 }
 

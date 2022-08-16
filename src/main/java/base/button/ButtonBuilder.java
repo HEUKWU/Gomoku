@@ -59,6 +59,9 @@ public class ButtonBuilder {
     public JButton build() {
         JButton button = new JButton(text);
         button.setBounds(positionX, positionY, width, height);
+        if (text == null) {
+            return new JButton();
+        }
         if (color != null) {
             button.setBackground(color);
         }

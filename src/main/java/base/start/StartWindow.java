@@ -1,14 +1,9 @@
 package base.start;
 
-import base.StartMenu;
 import base.button.ButtonBuilder;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class StartWindow extends JFrame {
     public StartWindow() {
@@ -31,7 +26,7 @@ public class StartWindow extends JFrame {
                 .withWidth(140)
                 .withHeight(30)
                 .addEvent(e -> {
-                    new StartMenu();
+                    ProgramWindowController.showStartMenu();
                     dispose();
                 })
                 .build();

@@ -1,9 +1,9 @@
 package base;
 
-import base.start.ProgramController;
+import base.start.ProgramWindowController;
 
 public class Program {
     public static void main(String[] args) {
-        ProgramController.start();
+        ProgramWindowController.start();
     }
 }

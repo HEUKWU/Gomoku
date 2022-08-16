@@ -63,8 +63,7 @@ public class OmokFrame extends JFrame implements ActionListener{
         bt = new JButton[a][a];
         w = new ImageIcon("wdol.jpg");
         b = new ImageIcon("bdol.jpg");
-        p = new ImageIcon("pandegi.jpg");
-
+//        p = new ImageIcon("pandegi.jpg");
 //        winner1 = new JTextField("흑");
 //        winner2 = new JTextField("백");
 
